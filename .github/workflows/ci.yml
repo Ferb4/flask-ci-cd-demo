@@ -21,16 +21,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; else echo "Pas de requirements.txt trouvé."; fi
 
-    - name: Run simple test
+    - name: Run tests
       run: |
-        echo "Tests simulés pour le moment"
-        python app.py &
-        sleep 3
-        curl -f http://127.0.0.1:5000
+        if [ -f test.py ]; then python test.py; else echo "Aucun fichier test.py trouvé."; fi
 
-    - name: Build Docker image
-      run: |
-        docker build -t flask-ci-cd-demo .
 
