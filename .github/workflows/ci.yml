@@ -21,12 +21,16 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Test app startup
+    - name: Run simple test
       run: |
+        echo "Tests simulés pour le moment"
         python app.py &
-        sleep 5
+        sleep 3
         curl -f http://127.0.0.1:5000
+
+    - name: Build Docker image
+      run: |
+        docker build -t flask-ci-cd-demo .
 
